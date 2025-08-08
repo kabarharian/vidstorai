@@ -1,0 +1,6 @@
+{
+  "name": "AI Video Storyboard Generator",
+  "description": "Generate a visual storyboard from a text prompt. This application uses AI to create a sequence of scenes and then generates an image for each scene to simulate a video concept.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
