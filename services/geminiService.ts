@@ -1,9 +1,14 @@
 
+
 import { GoogleGenAI, Type } from "@google/genai";
 import type { AspectRatio } from "../types";
 
-// In a browser environment, the API key is expected to be provided by a
-// build tool which replaces `process.env.API_KEY` at build time.
+// The API key is obtained exclusively from the environment variable `process.env.API_KEY`.
+// This variable is assumed to be pre-configured and accessible in the execution environment.
+if (!process.env.API_KEY) {
+  throw new Error("The API_KEY environment variable is not set. Please ensure it is configured in your execution environment.");
+}
+
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 /**
