@@ -5,6 +5,7 @@ import type { AspectRatio } from "../types";
  * @param prompt The user's initial idea.
  * @returns A promise that resolves to an array of scene descriptions.
  */
+export const generateStoryboard = async (prompt: string): Promise<string[]> => {
   try {
     const res = await fetch("/functions/gemini", {
       method: "POST",
@@ -20,6 +21,7 @@ import type { AspectRatio } from "../types";
   } catch (error) {
     console.error("Error generating storyboard:", error);
     throw error;
+  }
 };
 
 /**
