@@ -1,13 +1,20 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 import type { AspectRatio } from "../types";
 
-// The API key is obtained exclusively from the environment variable `process.env.API_KEY`.
-// This variable is assumed to be pre-configured and accessible in the execution environment.
-if (!process.env.API_KEY) {
+// The API key MUST be provided as an environment variable named API_KEY.
+// The execution environment (e.g., Vite, Webpack) is responsible for making 
+// this variable available in the browser.
+const apiKey = process.env.API_KEY;
+
+if (!apiKey) {
+  // This error will be shown in the browser console if the variable is not set.
+  // It helps developers diagnose a misconfigured environment.
   throw new Error("The API_KEY environment variable is not set. Please ensure it is configured in your execution environment.");
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Initialize the Google GenAI client with the API key.
+const ai = new GoogleGenAI({ apiKey });
 
 /**
  * Generates a storyboard of 4 scenes from a user prompt.
