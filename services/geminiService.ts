@@ -1,8 +1,9 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 import type { AspectRatio } from "../types";
 
-// As per guidelines, the API key must be available in the environment.
-// Do not add placeholder or fallback keys in the code.
+// In a browser environment, the API key is expected to be provided by a
+// build tool which replaces `process.env.API_KEY` at build time.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 /**
