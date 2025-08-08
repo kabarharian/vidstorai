@@ -66,11 +66,13 @@ const App: React.FC = () => {
         const ffmpeg = new FFmpeg();
 
         try {
-            // Load the multi-threaded version of FFmpeg from a local '/ffmpeg/' directory.
-            // This requires Cross-Origin-Isolation headers to be set on the page.
-            const coreURL = '/ffmpeg/ffmpeg-core.js';
-            const wasmURL = '/ffmpeg/ffmpeg-core.wasm';
-            const workerURL = '/ffmpeg/ffmpeg-core.worker.js';
+            // Load the multi-threaded version of FFmpeg from a CDN.
+            // This is necessary to bypass Cloudflare's 25MB file size limit for local assets.
+            // Cross-Origin-Isolation headers must still be set on the page for this to work.
+            const baseURL = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.10/dist/esm';
+            const coreURL = `${baseURL}/ffmpeg-core.js`;
+            const wasmURL = `${baseURL}/ffmpeg-core.wasm`;
+            const workerURL = `${baseURL}/ffmpeg-core.worker.js`;
 
             await ffmpeg.load({
                 coreURL: await toBlobURL(coreURL, 'text/javascript'),
