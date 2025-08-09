@@ -18,7 +18,9 @@ export const generateStoryboard = async (prompt: string): Promise<string[]> => {
     }
     const json = JSON.parse(text);
     if (!res.ok) {
-      throw new Error(json.error || "Failed to generate storyboard");
+      // Tampilkan error details jika ada
+      const details = json.details ? `\nDetails: ${JSON.stringify(json.details)}` : '';
+      throw new Error((json.error || "Failed to generate storyboard") + details);
     }
     return json.scenes;
   } catch (error) {
@@ -46,7 +48,9 @@ export const generateImageForScene = async (sceneDescription: string, aspectRati
     }
     const json = JSON.parse(text);
     if (!res.ok) {
-      throw new Error(json.error || "Failed to generate image");
+      // Tampilkan error details jika ada
+      const details = json.details ? `\nDetails: ${JSON.stringify(json.details)}` : '';
+      throw new Error((json.error || "Failed to generate image") + details);
     }
     return json.image;
   } catch (error) {
