@@ -7,7 +7,7 @@ import type { AspectRatio } from "../types";
  */
 export const generateStoryboard = async (prompt: string): Promise<string[]> => {
   try {
-    const res = await fetch("/functions/gemini", {
+  const res = await fetch("https://gemini.ipadnn-com.workers.dev", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: "storyboard", prompt }),
@@ -35,7 +35,7 @@ export const generateStoryboard = async (prompt: string): Promise<string[]> => {
  */
 export const generateImageForScene = async (sceneDescription: string, aspectRatio: AspectRatio): Promise<string> => {
   try {
-    const res = await fetch("/functions/gemini", {
+  const res = await fetch("https://gemini.ipadnn-com.workers.dev", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: "image", sceneDescription, aspectRatio }),
