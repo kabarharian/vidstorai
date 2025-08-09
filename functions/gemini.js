@@ -14,6 +14,7 @@ export async function onRequestPost(context) {
     }
     requestData = JSON.parse(text);
   } catch (e) {
+    console.error("JSON parse error:", e);
     return new Response(JSON.stringify({ error: "Invalid JSON" }), {
       status: 400,
       headers: { "Content-Type": "application/json" }
@@ -44,6 +45,7 @@ export const onRequest = async (context) => {
       headers: { "Content-Type": "application/json" }
     });
   } catch (e) {
+    console.error("Handler error:", e);
     return new Response(JSON.stringify({ error: "Internal Server Error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" }
