@@ -34,12 +34,19 @@ export async function onRequestPost(context) {
 }
 
 export const onRequest = async (context) => {
-  if (context.request.method === "POST") {
-    return await onRequestPost(context);
+  try {
+    if (context.request.method === "POST") {
+      return await onRequestPost(context);
+    }
+    // Selalu kembalikan JSON untuk method yang tidak didukung
+    return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
+      status: 405,
+      headers: { "Content-Type": "application/json" }
+    });
+  } catch (e) {
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
   }
-  // Selalu kembalikan JSON untuk method yang tidak didukung
-  return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
-    status: 405,
-    headers: { "Content-Type": "application/json" }
-  });
 };
