@@ -1,4 +1,3 @@
-import { onRequestPost } from "./gemini";
 
 // Contoh implementasi onRequestPost jika belum ada
 export async function onRequestPost(context) {
