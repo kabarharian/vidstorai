@@ -5,7 +5,15 @@ export async function onRequestPost(context) {
   // Membaca dan memproses data JSON dari request body
   let requestData = {};
   try {
-    requestData = await context.request.json();
+    // Cek jika body kosong
+    const text = await context.request.text();
+    if (!text) {
+      return new Response(JSON.stringify({ error: "Empty request body" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+    requestData = JSON.parse(text);
   } catch (e) {
     return new Response(JSON.stringify({ error: "Invalid JSON" }), {
       status: 400,
