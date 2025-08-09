@@ -12,12 +12,15 @@ export const generateStoryboard = async (prompt: string): Promise<string[]> => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: "storyboard", prompt }),
     });
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error || "Failed to generate storyboard");
+    const text = await res.text();
+    if (!text) {
+      throw new Error("Empty response from server");
     }
-    const data = await res.json();
-    return data.scenes;
+    const json = JSON.parse(text);
+    if (!res.ok) {
+      throw new Error(json.error || "Failed to generate storyboard");
+    }
+    return json.scenes;
   } catch (error) {
     console.error("Error generating storyboard:", error);
     throw error;
@@ -37,12 +40,15 @@ export const generateImageForScene = async (sceneDescription: string, aspectRati
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: "image", sceneDescription, aspectRatio }),
     });
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error || "Failed to generate image");
+    const text = await res.text();
+    if (!text) {
+      throw new Error("Empty response from server");
     }
-    const data = await res.json();
-    return data.image;
+    const json = JSON.parse(text);
+    if (!res.ok) {
+      throw new Error(json.error || "Failed to generate image");
+    }
+    return json.image;
   } catch (error) {
     console.error("Error generating image:", error);
     throw error;
